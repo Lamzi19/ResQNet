@@ -49,6 +49,8 @@ node_modules/
 frontend/node_modules/
 frontend/dist/
 frontend/dist-ssr/
+responder-dashboard/node_modules/
+responder-dashboard/dist/
 *.tsbuildinfo
 .npm
 npm-debug.log*

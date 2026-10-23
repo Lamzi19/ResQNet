@@ -63,6 +63,16 @@ npm run dev
 ```
 Open **`http://localhost:5173`** in your browser to interact with the dashboard.
 
+### Step C: Rescuer Command Center Setup & Launch
+```bash
+# In a separate terminal, navigate to the responder-dashboard directory
+cd responder-dashboard
+npm install
+Copy-Item .env.example .env   # On Windows (or 'cp .env.example .env' on Linux/macOS)
+npm run dev
+```
+Open **`http://localhost:5173`** in your browser to interact with the Kerala multi-district flood simulator, ranked SOS triage list, and rescue boat task assignment portal.
+
 ---
 
 ## 4. Running Automated Tests
