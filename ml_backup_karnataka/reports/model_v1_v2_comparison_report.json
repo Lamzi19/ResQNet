@@ -1,0 +1,214 @@
+{
+  "evaluation_timestamp": "2026-10-23T14:48:14.569007",
+  "train_period": "2018-01-06 to 2022-12-31",
+  "test_period": "2023-01-01 to 2024-12-31 (Held-out Future Monsoons)",
+  "train_samples": 9105,
+  "test_samples": 3655,
+  "v1_feature_count": 15,
+  "v2_feature_count": 20,
+  "v2_added_features": [
+    "river_discharge_m3s",
+    "upstream_netravati_discharge_m3s",
+    "river_discharge_ratio",
+    "tide_level_max_m",
+    "coastal_backwater_risk_index"
+  ],
+  "models_compared": {
+    "baseline_logreg": {
+      "model_name": "Linear Baseline (LogReg)",
+      "roc_auc": 0.9698,
+      "pr_auc": 0.4042,
+      "brier_score_loss": 0.0364,
+      "default_threshold_0_50": {
+        "accuracy": 0.9568,
+        "precision": 0.3825,
+        "recall": 0.7757,
+        "f1_score": 0.5123,
+        "true_positives": 83,
+        "false_positives": 134,
+        "false_negatives": 24,
+        "true_negatives": 3414
+      },
+      "operational_threshold_0_03": {
+        "threshold": 0.03,
+        "accuracy": 0.8378,
+        "precision": 0.1529,
+        "recall": 1.0,
+        "f1_score": 0.2652,
+        "true_positives": 107,
+        "false_positives": 593,
+        "false_negatives": 0,
+        "true_negatives": 2955,
+        "false_alarm_rate": 0.1671,
+        "miss_rate": 0.0
+      }
+    },
+    "model_v1_rainfall_soil": {
+      "model_name": "Model v1 (Rainfall & Soil)",
+      "roc_auc": 0.9741,
+      "pr_auc": 0.4645,
+      "brier_score_loss": 0.0223,
+      "default_threshold_0_50": {
+        "accuracy": 0.9718,
+        "precision": 0.5526,
+        "recall": 0.1963,
+        "f1_score": 0.2897,
+        "true_positives": 21,
+        "false_positives": 17,
+        "false_negatives": 86,
+        "true_negatives": 3531
+      },
+      "operational_threshold_0_03": {
+        "threshold": 0.03,
+        "accuracy": 0.9587,
+        "precision": 0.3922,
+        "recall": 0.7477,
+        "f1_score": 0.5145,
+        "true_positives": 80,
+        "false_positives": 124,
+        "false_negatives": 27,
+        "true_negatives": 3424,
+        "false_alarm_rate": 0.0349,
+        "miss_rate": 0.2523
+      }
+    },
+    "model_v2_coastal_riverine": {
+      "model_name": "Model v2 (Multi-Factor Coastal)",
+      "roc_auc": 0.9824,
+      "pr_auc": 0.4703,
+      "brier_score_loss": 0.0223,
+      "default_threshold_0_50": {
+        "accuracy": 0.9691,
+        "precision": 0.4531,
+        "recall": 0.271,
+        "f1_score": 0.3392,
+        "true_positives": 29,
+        "false_positives": 35,
+        "false_negatives": 78,
+        "true_negatives": 3513
+      },
+      "operational_threshold_0_03": {
+        "threshold": 0.03,
+        "accuracy": 0.9732,
+        "precision": 0.526,
+        "recall": 0.8505,
+        "f1_score": 0.65,
+        "true_positives": 91,
+        "false_positives": 82,
+        "false_negatives": 16,
+        "true_negatives": 3466,
+        "false_alarm_rate": 0.0231,
+        "miss_rate": 0.1495
+      }
+    }
+  },
+  "v2_feature_importances": [
+    {
+      "feature": "upstream_netravati_discharge_m3s",
+      "importance": 0.2481
+    },
+    {
+      "feature": "past_72h_precip_mm",
+      "importance": 0.1391
+    },
+    {
+      "feature": "past_48h_precip_mm",
+      "importance": 0.1202
+    },
+    {
+      "feature": "past_24h_precip_mm",
+      "importance": 0.0917
+    },
+    {
+      "feature": "forecast_precip_24h_mm",
+      "importance": 0.084
+    },
+    {
+      "feature": "past_120h_precip_mm",
+      "importance": 0.0635
+    },
+    {
+      "feature": "month_sin",
+      "importance": 0.0426
+    },
+    {
+      "feature": "forecast_max_hourly_rate_mm",
+      "importance": 0.0362
+    },
+    {
+      "feature": "month_cos",
+      "importance": 0.0356
+    },
+    {
+      "feature": "antecedent_precip_index",
+      "importance": 0.0349
+    },
+    {
+      "feature": "is_monsoon",
+      "importance": 0.0322
+    },
+    {
+      "feature": "tide_level_max_m",
+      "importance": 0.0151
+    },
+    {
+      "feature": "wind_speed_max_kmh",
+      "importance": 0.0124
+    },
+    {
+      "feature": "soil_moisture_surface",
+      "importance": 0.0102
+    },
+    {
+      "feature": "soil_moisture_deep",
+      "importance": 0.0086
+    },
+    {
+      "feature": "soil_saturation_index",
+      "importance": 0.008
+    },
+    {
+      "feature": "river_discharge_m3s",
+      "importance": 0.006
+    },
+    {
+      "feature": "coastal_backwater_risk_index",
+      "importance": 0.0056
+    },
+    {
+      "feature": "river_discharge_ratio",
+      "importance": 0.0046
+    },
+    {
+      "feature": "elevation_m",
+      "importance": 0.0014
+    }
+  ],
+  "performance_by_flood_mechanism": {
+    "RIVERINE_OVERFLOW": {
+      "total_events": 2,
+      "v1_detected": 2,
+      "v1_recall": 1.0,
+      "v2_detected": 0,
+      "v2_recall": 0.0,
+      "recall_gain_pct": -100.0
+    },
+    "COASTAL_COMPOUND": {
+      "total_events": 60,
+      "v1_detected": 51,
+      "v1_recall": 0.85,
+      "v2_detected": 58,
+      "v2_recall": 0.9667,
+      "recall_gain_pct": 11.67
+    }
+  },
+  "key_takeaways": {
+    "pr_auc_gain": 0.0058,
+    "roc_auc_gain": 0.0083,
+    "brier_improvement": 0.0,
+    "operational_recall_v1": 0.7477,
+    "operational_recall_v2": 0.8505,
+    "operational_precision_v1": 0.3922,
+    "operational_precision_v2": 0.526
+  }
+}

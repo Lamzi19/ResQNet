@@ -1,0 +1,163 @@
+{
+  "dataset_name": "ResQNet Coastal Karnataka Hydrometeorological Dataset",
+  "sources": [
+    {
+      "name": "ECMWF ERA5 & ERA5-Land Reanalysis (via Open-Meteo Historical Archive)",
+      "license": "Copernicus Open Access / CC-BY 4.0",
+      "frequency": "Hourly aggregated to daily",
+      "variables": [
+        "precipitation_sum_mm",
+        "precipitation_hours",
+        "max_hourly_rain_mm",
+        "soil_moisture_0_to_7cm",
+        "soil_moisture_7_to_28cm",
+        "wind_speed_10m_max_kmh"
+      ]
+    },
+    {
+      "name": "Karnataka State Natural Disaster Monitoring Centre (KSNDMC) & Dakshina Kannada DDMP",
+      "usage": "Ground-truth flood event dates & rainfall categorization thresholds (Heavy >64.5mm, Very Heavy >115.6mm, Extremely Heavy >204.4mm)",
+      "documented_events": [
+        [
+          "2018-08-08",
+          "2018-08-19",
+          "Aug 2018 Mega Flood: Netravati breached 8.5m danger mark at Bantwal; Uppinangady sangama submerged; widespread coastal inundation."
+        ],
+        [
+          "2019-08-05",
+          "2019-08-15",
+          "Aug 2019 Record Deluge: Bantwal gauge reached 11.2m (+2.7m over danger mark); Belthangady and Mangaluru lowlands submerged."
+        ],
+        [
+          "2020-09-19",
+          "2020-09-23",
+          "Sep 2020 Cloudburst / Flash Flood: Extreme urban waterlogging in Mangaluru (Kottara, Pumpwell, Kudroli) & Swarna basin."
+        ],
+        [
+          "2022-07-04",
+          "2022-07-14",
+          "Jul 2022 Sustained Monsoon Surge: Red alerts for 7 consecutive days; Netravati & Swarna overtopping; rural taluk submergence."
+        ],
+        [
+          "2022-08-01",
+          "2022-08-08",
+          "Aug 2022 Secondary Flood Peak: Western ghats runoff causing riverbank overflow in DK."
+        ],
+        [
+          "2023-07-20",
+          "2023-07-28",
+          "Jul 2023 Flood Alert: Netravati crossed 8.7m; schools closed; low-lying submergence in Bantwal and Mangaluru."
+        ],
+        [
+          "2024-07-14",
+          "2024-07-25",
+          "Jul 2024 Coastal Inundation: KSNDMC red alert & riverbank evacuation across Dakshina Kannada & Udupi."
+        ]
+      ]
+    }
+  ],
+  "spatial_coverage": {
+    "locations": [
+      "bantwal",
+      "belthangady",
+      "mangaluru_urban",
+      "udupi",
+      "ullal"
+    ],
+    "location_names": [
+      "Bantwal (Netravati Gauge)",
+      "Belthangady (Western Ghats Confluence)",
+      "Mangaluru Urban (Kottara/Pumpwell)",
+      "Udupi / Manipal (Swarna Basin)",
+      "Ullal (Netravati Estuary)"
+    ],
+    "districts": [
+      "Dakshina Kannada",
+      "Udupi"
+    ]
+  },
+  "temporal_coverage": {
+    "start_date": "2018-01-06",
+    "end_date": "2024-12-31",
+    "total_days": 2552,
+    "total_records": 12760
+  },
+  "missing_values": {
+    "date": 0,
+    "precipitation_sum_mm": 0,
+    "precipitation_hours": 0,
+    "wind_speed_10m_max_kmh": 0,
+    "max_hourly_rain_mm": 0,
+    "soil_moisture_surface_mean": 0,
+    "soil_moisture_deep_mean": 0,
+    "location_id": 0,
+    "location_name": 0,
+    "latitude": 0,
+    "longitude": 0,
+    "elevation_m": 0,
+    "basin": 0,
+    "slope_category": 0,
+    "past_24h_precip_mm": 0,
+    "past_48h_precip_mm": 0,
+    "past_72h_precip_mm": 0,
+    "past_120h_precip_mm": 0,
+    "antecedent_precip_index": 0,
+    "soil_moisture_surface": 0,
+    "soil_moisture_deep": 0,
+    "soil_saturation_index": 0,
+    "wind_speed_max_kmh": 0,
+    "forecast_precip_24h_mm": 0,
+    "forecast_max_hourly_rate_mm": 0,
+    "month": 0,
+    "day_of_year": 0,
+    "is_monsoon": 0,
+    "month_sin": 0,
+    "month_cos": 0,
+    "flood_event_24h": 0,
+    "flood_risk_level": 0,
+    "split": 0
+  },
+  "train_set": {
+    "years": "2018-2022",
+    "count": 9105,
+    "flood_event_count": 243,
+    "flood_event_prevalence_pct": 2.67,
+    "risk_level_distribution": {
+      "0": 8597,
+      "1": 265,
+      "2": 243
+    }
+  },
+  "test_set": {
+    "years": "2023-2024",
+    "count": 3655,
+    "flood_event_count": 107,
+    "flood_event_prevalence_pct": 2.93,
+    "risk_level_distribution": {
+      "0": 3470,
+      "2": 107,
+      "1": 78
+    }
+  },
+  "feature_columns": [
+    "past_24h_precip_mm",
+    "past_48h_precip_mm",
+    "past_72h_precip_mm",
+    "past_120h_precip_mm",
+    "antecedent_precip_index",
+    "soil_moisture_surface",
+    "soil_moisture_deep",
+    "soil_saturation_index",
+    "wind_speed_max_kmh",
+    "forecast_precip_24h_mm",
+    "forecast_max_hourly_rate_mm",
+    "elevation_m",
+    "is_monsoon",
+    "month_sin",
+    "month_cos"
+  ],
+  "target_columns": [
+    "flood_event_24h",
+    "flood_risk_level"
+  ]
+}

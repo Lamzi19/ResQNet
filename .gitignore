@@ -1,0 +1,113 @@
+# ==========================================
+# ResQNet — Root .gitignore Configuration
+# ==========================================
+
+# 1. Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+htmlcov/
+
+# 2. Node & Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.tsbuildinfo
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.oxlintrc.json.cache
+
+# 3. Environment Variables & Secrets (CRITICAL)
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+secrets/
+*.pem
+*.key
+*.cert
+*.pfx
+*.p12
+*.crt
+id_rsa
+id_rsa.pub
+
+# 4. Database Files & Runtime SQLite
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+resqnet.db
+
+# 5. Private Incident Data & SOS Telemetry (CRITICAL)
+# Never commit citizen distress logs, private location traces, or rescuer transcripts
+sos_logs/
+incidents_private/
+private_data/
+telemetry_dumps/
+*.gpx
+*.kml
+field_reports_private/
+
+# 6. IDEs & Operating System Artifacts
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# 7. ML Scratch & Large Raw Dumps (Joblib models tracked via Git LFS if >50MB)
+ml/data/scratch/
+ml/data/temp/
+*.tmp

@@ -1,0 +1,241 @@
+{
+  "evaluation_timestamp": "2026-10-23T14:08:28.671354",
+  "train_period": "2018-01-06 to 2022-12-31",
+  "test_period": "2023-01-01 to 2024-12-31 (Held-out Future Monsoon Seasons)",
+  "train_samples": 9105,
+  "test_samples": 3655,
+  "flood_prevalence_train_pct": 2.67,
+  "flood_prevalence_test_pct": 2.93,
+  "feature_columns": [
+    "past_24h_precip_mm",
+    "past_48h_precip_mm",
+    "past_72h_precip_mm",
+    "past_120h_precip_mm",
+    "antecedent_precip_index",
+    "soil_moisture_surface",
+    "soil_moisture_deep",
+    "soil_saturation_index",
+    "wind_speed_max_kmh",
+    "forecast_precip_24h_mm",
+    "forecast_max_hourly_rate_mm",
+    "elevation_m",
+    "is_monsoon",
+    "month_sin",
+    "month_cos"
+  ],
+  "feature_importances": [
+    {
+      "feature": "past_72h_precip_mm",
+      "importance": 0.1621
+    },
+    {
+      "feature": "past_48h_precip_mm",
+      "importance": 0.1589
+    },
+    {
+      "feature": "past_120h_precip_mm",
+      "importance": 0.106
+    },
+    {
+      "feature": "forecast_precip_24h_mm",
+      "importance": 0.1007
+    },
+    {
+      "feature": "past_24h_precip_mm",
+      "importance": 0.0963
+    },
+    {
+      "feature": "antecedent_precip_index",
+      "importance": 0.0844
+    },
+    {
+      "feature": "is_monsoon",
+      "importance": 0.0614
+    },
+    {
+      "feature": "month_sin",
+      "importance": 0.0586
+    },
+    {
+      "feature": "month_cos",
+      "importance": 0.0558
+    },
+    {
+      "feature": "forecast_max_hourly_rate_mm",
+      "importance": 0.0497
+    },
+    {
+      "feature": "wind_speed_max_kmh",
+      "importance": 0.0252
+    },
+    {
+      "feature": "soil_moisture_surface",
+      "importance": 0.0229
+    },
+    {
+      "feature": "soil_moisture_deep",
+      "importance": 0.0121
+    },
+    {
+      "feature": "soil_saturation_index",
+      "importance": 0.0035
+    },
+    {
+      "feature": "elevation_m",
+      "importance": 0.0025
+    }
+  ],
+  "threshold_analysis": [
+    {
+      "threshold": 0.03,
+      "recall": 0.7477,
+      "precision": 0.3922,
+      "f1_score": 0.5145,
+      "true_positives": 80,
+      "false_positives": 124,
+      "false_negatives": 27,
+      "true_negatives": 3424
+    },
+    {
+      "threshold": 0.05,
+      "recall": 0.6075,
+      "precision": 0.3869,
+      "f1_score": 0.4727,
+      "true_positives": 65,
+      "false_positives": 103,
+      "false_negatives": 42,
+      "true_negatives": 3445
+    },
+    {
+      "threshold": 0.08,
+      "recall": 0.5888,
+      "precision": 0.42,
+      "f1_score": 0.4903,
+      "true_positives": 63,
+      "false_positives": 87,
+      "false_negatives": 44,
+      "true_negatives": 3461
+    },
+    {
+      "threshold": 0.1,
+      "recall": 0.5327,
+      "precision": 0.413,
+      "f1_score": 0.4653,
+      "true_positives": 57,
+      "false_positives": 81,
+      "false_negatives": 50,
+      "true_negatives": 3467
+    },
+    {
+      "threshold": 0.12,
+      "recall": 0.4766,
+      "precision": 0.408,
+      "f1_score": 0.4397,
+      "true_positives": 51,
+      "false_positives": 74,
+      "false_negatives": 56,
+      "true_negatives": 3474
+    },
+    {
+      "threshold": 0.15,
+      "recall": 0.4579,
+      "precision": 0.4298,
+      "f1_score": 0.4434,
+      "true_positives": 49,
+      "false_positives": 65,
+      "false_negatives": 58,
+      "true_negatives": 3483
+    },
+    {
+      "threshold": 0.2,
+      "recall": 0.4206,
+      "precision": 0.4592,
+      "f1_score": 0.439,
+      "true_positives": 45,
+      "false_positives": 53,
+      "false_negatives": 62,
+      "true_negatives": 3495
+    },
+    {
+      "threshold": 0.3,
+      "recall": 0.3178,
+      "precision": 0.4304,
+      "f1_score": 0.3656,
+      "true_positives": 34,
+      "false_positives": 45,
+      "false_negatives": 73,
+      "true_negatives": 3503
+    },
+    {
+      "threshold": 0.5,
+      "recall": 0.1963,
+      "precision": 0.5526,
+      "f1_score": 0.2897,
+      "true_positives": 21,
+      "false_positives": 17,
+      "false_negatives": 86,
+      "true_negatives": 3531
+    }
+  ],
+  "recommended_operational_thresholds": {
+    "advisory_moderate_threshold": 0.03,
+    "warning_high_threshold": 0.12,
+    "note": "Because baseline flood prevalence is ~2.7%, a calibrated probability >=0.03 indicates above-normal alert conditions (recall 74.8%, precision 39.2%), while >=0.12 indicates severe 4x-heightened disaster conditions."
+  },
+  "models": {
+    "baseline_logistic_regression": {
+      "model_name": "Logistic Regression Baseline",
+      "accuracy": 0.9475,
+      "precision": 0.3432,
+      "recall": 0.8692,
+      "f1_score": 0.4921,
+      "roc_auc": 0.9738,
+      "pr_auc": 0.4205,
+      "brier_score_loss": 0.0413,
+      "confusion_matrix": {
+        "true_negatives": 3370,
+        "false_positives_false_alarms": 178,
+        "false_negatives_missed_floods": 14,
+        "true_positives_detected_floods": 93
+      },
+      "false_alarm_rate": 0.0502,
+      "miss_rate": 0.1308
+    },
+    "random_forest_uncalibrated": {
+      "model_name": "Random Forest (Uncalibrated)",
+      "accuracy": 0.962,
+      "precision": 0.3919,
+      "recall": 0.5421,
+      "f1_score": 0.4549,
+      "roc_auc": 0.9721,
+      "pr_auc": 0.4368,
+      "brier_score_loss": 0.0257,
+      "confusion_matrix": {
+        "true_negatives": 3458,
+        "false_positives_false_alarms": 90,
+        "false_negatives_missed_floods": 49,
+        "true_positives_detected_floods": 58
+      },
+      "false_alarm_rate": 0.0254,
+      "miss_rate": 0.4579
+    },
+    "random_forest_calibrated_default_0_5": {
+      "model_name": "Random Forest (Calibrated)",
+      "accuracy": 0.9718,
+      "precision": 0.5526,
+      "recall": 0.1963,
+      "f1_score": 0.2897,
+      "roc_auc": 0.9741,
+      "pr_auc": 0.4645,
+      "brier_score_loss": 0.0223,
+      "confusion_matrix": {
+        "true_negatives": 3531,
+        "false_positives_false_alarms": 17,
+        "false_negatives_missed_floods": 86,
+        "true_positives_detected_floods": 21
+      },
+      "false_alarm_rate": 0.0048,
+      "miss_rate": 0.8037
+    }
+  }
+}

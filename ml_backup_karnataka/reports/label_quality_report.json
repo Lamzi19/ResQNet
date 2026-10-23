@@ -1,0 +1,47 @@
+{
+  "report_name": "ResQNet Label Quality and Target Validity Audit (Phase 1 Upgrade)",
+  "audit_timestamp": "2026-10-23T14:47:17.616034",
+  "total_records": 12760,
+  "target_breakdown": {
+    "total_positive_labels": 350,
+    "confirmed_disaster_dates_count": 340,
+    "threshold_proxy_count": 12,
+    "confirmed_only_count": 338,
+    "proxy_only_count": 10,
+    "both_count": 2,
+    "confirmed_percentage": 97.14,
+    "proxy_only_percentage": 2.86
+  },
+  "circularity_analysis": {
+    "status": "Addressed & Explicitly Tracked",
+    "explanation": "In v1, 10 records (2.9% of positive events) were generated via physical rainfall thresholds (>115.6mm + soil saturation). Evaluating rainfall-based models against threshold-derived labels introduces partial circularity. In v2, confirmed disaster events are tracked separately in `target_confirmed_disaster`, allowing unbiased evaluation strictly against verified official disaster chronologies."
+  },
+  "flood_mechanisms_identified": {
+    "mechanisms": {
+      "RIVERINE_OVERFLOW": 158,
+      "COASTAL_COMPOUND": 61,
+      "RIVERINE_AND_COMPOUND": 60,
+      "RIVERINE_AND_URBAN": 45,
+      "URBAN_PLUVIAL": 26
+    },
+    "descriptions": {
+      "RIVERINE_OVERFLOW": "Netravati / Kumaradhara / Swarna river overtopping danger marks at Bantwal & Belthangady.",
+      "URBAN_PLUVIAL": "Intense cloudbursts overwhelming stormwater drainage in Mangaluru Urban (Kottara Chowki/Pumpwell).",
+      "COASTAL_COMPOUND": "Combined high astronomical tide + upstream river discharge blocking estuarine drainage at Ullal."
+    }
+  },
+  "train_vs_test_prevalence": {
+    "train_2018_2022": {
+      "samples": 9105,
+      "confirmed_disasters": 235,
+      "total_positives": 243,
+      "prevalence_pct": 2.67
+    },
+    "test_2023_2024": {
+      "samples": 3655,
+      "confirmed_disasters": 105,
+      "total_positives": 107,
+      "prevalence_pct": 2.93
+    }
+  }
+}
