@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ResQNet SOS</string>
+    <string name="sos_brand">ResQNet Citizen SOS</string>
+    <string name="sos_tagline">Kerala Disaster Early-Warning &amp; Offline Relay</string>
+    <string name="action_sos_panic">EMERGENCY SOS</string>
+    <string name="action_send_sos">DISPATCH SOS BEACON</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_view_history">View Distress History</string>
+    <string name="status_offline_mode">OFFLINE MODE — BLE/Mesh Peer Queued</string>
+    <string name="status_online_mode">ONLINE — Direct Gateway Ingestion Active</string>
+    <string name="status_location_permission_needed">Location permission required for accurate GPS coordinates</string>
+    <string name="status_bluetooth_disabled">Bluetooth is OFF. Enable Bluetooth in Settings for peer mesh relay.</string>
+</resources>

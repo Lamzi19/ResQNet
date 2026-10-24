@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.config import settings
-from backend.app.database.connection import engine, Base, SessionLocal
+from backend.app.database.connection import engine, Base, SessionLocal, ensure_schema_upgrades
 from backend.app.database.models import OfficialAdvisory
 from backend.app.api.routes import router
 from backend.app.services.predictor_service import load_model_artifact
@@ -12,12 +12,14 @@ from backend.app.services.predictor_service import load_model_artifact
 
 # Ensure tables exist immediately
 Base.metadata.create_all(bind=engine)
+ensure_schema_upgrades(engine)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: ensure tables and seed data
     Base.metadata.create_all(bind=engine)
+    ensure_schema_upgrades(engine)
     print("[ResQNet] Database tables verified/initialized.")
     
     # Preload the machine learning pipeline artifact

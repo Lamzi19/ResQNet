@@ -1,12 +1,15 @@
 import React from 'react';
-import { Shield, AlertTriangle, Sparkles, BellRing } from 'lucide-react';
+import { Shield, AlertTriangle, Sparkles, BellRing, Compass, LifeBuoy } from 'lucide-react';
 import type { OfficialAdvisory } from '../services/api';
 
 interface NavbarProps {
   advisories: OfficialAdvisory[];
   onOpenTestModal: () => void;
   onOpenComparisonModal: () => void;
+  onOpenShelterModal?: () => void;
+  onOpenSosModal?: () => void;
   activeAlertCount: number;
+  activeSosCount?: number;
   dataFreshness?: string;
   isBackendOnline?: boolean;
 }
@@ -15,7 +18,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   advisories, 
   onOpenTestModal, 
   onOpenComparisonModal, 
+  onOpenShelterModal,
+  onOpenSosModal,
   activeAlertCount,
+  activeSosCount = 0,
   dataFreshness = 'LIVE',
   isBackendOnline = true
 }) => {
@@ -117,6 +123,66 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {onOpenShelterModal && (
+            <button
+              onClick={onOpenShelterModal}
+              id="btn-open-shelter-map"
+              style={{
+                backgroundColor: 'rgba(15, 157, 154, 0.2)',
+                color: '#A7F3D0',
+                border: '1px solid rgba(15, 157, 154, 0.4)',
+                padding: '6px 12px',
+                borderRadius: 'var(--radius-sm)',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+              title="Open Kerala Relief Centers & Evacuation Safe-Spots Map"
+            >
+              <Compass size={13} color="#2DD4BF" />
+              Relief Safe-Spots
+            </button>
+          )}
+
+          {onOpenSosModal && (
+            <button
+              onClick={onOpenSosModal}
+              id="btn-open-sos-workspace"
+              style={{
+                backgroundColor: 'rgba(220, 38, 38, 0.2)',
+                color: '#FCA5A5',
+                border: '1px solid rgba(220, 38, 38, 0.45)',
+                padding: '6px 12px',
+                borderRadius: 'var(--radius-sm)',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+              title="Open Unified Kerala SOS Distress Queue & Rescue Operations"
+            >
+              <LifeBuoy size={14} color="#EF4444" strokeWidth={2.4} />
+              SOS Operations
+              {activeSosCount > 0 && (
+                <span style={{
+                  backgroundColor: '#EF4444',
+                  color: '#FFFFFF',
+                  borderRadius: 'var(--radius-full)',
+                  padding: '1px 6px',
+                  fontSize: '0.65rem',
+                  fontWeight: 800
+                }}>
+                  {activeSosCount}
+                </span>
+              )}
+            </button>
+          )}
+
           <button
             onClick={onOpenComparisonModal}
             id="btn-model-comparison"

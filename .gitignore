@@ -111,3 +111,18 @@ Thumbs.db
 ml/data/scratch/
 ml/data/temp/
 *.tmp
+
+# 8. Android & Mobile Build Artifacts
+.gradle/
+sos/mobile/.gradle/
+sos/mobile/build/
+sos/mobile/app/build/
+local.properties
+*.apk
+*.aab
+*.ap_
+*.dex
+captures/
+.externalNativeBuild/
+.cxx/
+

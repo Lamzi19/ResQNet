@@ -25,6 +25,11 @@ class WarningEngine:
         prediction: PredictionResponse,
         db: Session
     ) -> Optional[AlertOut]:
+        # Development simulation check: do NOT dispatch or persist production alerts
+        # to ensure real operational alert history and cooldown timers remain pristine
+        if getattr(prediction, "is_simulation", False):
+            return None
+
         loc_id = prediction.location_id
         loc = SUPPORTED_LOCATIONS.get(loc_id)
         loc_name = loc.name if loc else loc_id

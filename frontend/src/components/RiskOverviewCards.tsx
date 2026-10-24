@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  ShieldCheck, AlertTriangle, AlertOctagon, CloudRain, 
-  Waves, Anchor, Info, Sparkles, Database 
+import {
+  ShieldCheck, AlertTriangle, AlertOctagon, CloudRain,
+  Waves, Anchor, Info, Sparkles, Database
 } from 'lucide-react';
 import type { PredictionData, WeatherData, LocationInfo } from '../services/api';
 
@@ -91,6 +91,11 @@ export const RiskOverviewCards: React.FC<RiskOverviewCardsProps> = ({
               <Database size={10} /> Kerala Operational Telemetry
             </span>
           )}
+          {prediction.is_simulation && (
+            <span className="badge badge-warning" style={{ fontSize: '0.68rem', backgroundColor: 'rgba(217, 154, 22, 0.15)', color: '#B45309', border: '1px solid #D99A16' }}>
+              Synthetic Simulation Pipeline
+            </span>
+          )}
         </div>
 
         {/* Model Switcher with Honest Regional Context */}
@@ -137,12 +142,12 @@ export const RiskOverviewCards: React.FC<RiskOverviewCardsProps> = ({
         gap: '16px'
       }}>
         {/* 1. Primary Risk Estimate Card */}
-        <div 
+        <div
           className="dash-card"
-          style={{ 
-            padding: '20px', 
-            backgroundColor: summaryCardBg, 
-            borderColor: summaryCardBorder 
+          style={{
+            padding: '20px',
+            backgroundColor: summaryCardBg,
+            borderColor: summaryCardBorder
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
@@ -163,7 +168,7 @@ export const RiskOverviewCards: React.FC<RiskOverviewCardsProps> = ({
             </div>
 
             <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '8px', marginBottom: '8px' }}>
-              Horizon: <strong>24 Hours</strong> | Freshness: <strong>{weather.freshness}</strong>
+              Horizon: <strong>24 Hours</strong> | Freshness: <strong>{prediction.is_simulation ? 'SYNTHETIC_SIM' : weather.freshness}</strong>
             </p>
 
             <div style={{
@@ -173,8 +178,15 @@ export const RiskOverviewCards: React.FC<RiskOverviewCardsProps> = ({
               fontSize: '0.72rem',
               color: 'var(--text-secondary)'
             }}>
-              <span>Method: {prediction.is_rule_based || location?.region === 'kerala' ? 'IMD/CWC Physical Criteria' : 'Random Forest v' + prediction.model_version}</span>
-              <span style={{ float: 'right' }}>Inputs: {prediction.features_used_count} Factors Synced</span>
+              <div>
+                <span>Method: {prediction.is_rule_based || location?.region === 'kerala' ? 'IMD/CWC Physical Criteria' : 'Random Forest v' + prediction.model_version}</span>
+                <span style={{ float: 'right' }}>Inputs: {prediction.features_used_count} Factors</span>
+              </div>
+              {prediction.rule_vs_model_reason && (
+                <div style={{ marginTop: '4px', paddingTop: '4px', borderTop: '1px solid rgba(0,0,0,0.06)', color: 'var(--text-muted)', fontStyle: 'italic' }}>
+                  {prediction.rule_vs_model_reason}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -183,22 +195,32 @@ export const RiskOverviewCards: React.FC<RiskOverviewCardsProps> = ({
         <div className="dash-card" style={{ padding: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-              Forecast Precipitation (24h)
+              Forecast Precipitation (24h) {prediction.is_simulation && <span style={{ color: '#B45309', fontWeight: 700 }}>[SIMULATED]</span>}
             </span>
             <CloudRain size={18} color="var(--brand-teal)" />
           </div>
 
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '8px' }}>
             <span className="mono" style={{ fontSize: '2.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-              {weather.forecast_next_24h_precip_mm}
+              {prediction.input_feature_snapshot?.forecast_precip_24h_mm !== undefined
+                ? prediction.input_feature_snapshot.forecast_precip_24h_mm.toFixed(1)
+                : weather.forecast_next_24h_precip_mm}
             </span>
             <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>mm / 24h</span>
           </div>
 
           <div style={{ marginTop: '8px', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-            <div>Past 72h Accumulation: <strong>{weather.past_72h_precip_mm} mm</strong></div>
+            <div>
+              Past 72h Accumulation: <strong>
+                {prediction.input_feature_snapshot?.past_72h_precip_mm !== undefined
+                  ? `${prediction.input_feature_snapshot.past_72h_precip_mm.toFixed(1)} mm`
+                  : `${weather.past_72h_precip_mm} mm`}
+              </strong>
+            </div>
             <div style={{ color: 'var(--text-muted)', marginTop: '2px' }}>
-              5-Day Total: {weather.past_120h_precip_mm} mm (Soil Antecedent Index)
+              {prediction.is_simulation
+                ? `Scenario: ${prediction.simulation_scenario || 'Custom Simulation'}`
+                : `5-Day Total: ${weather.past_120h_precip_mm} mm (Soil Antecedent Index)`}
             </div>
           </div>
         </div>
