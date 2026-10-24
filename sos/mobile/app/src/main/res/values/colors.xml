@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="resqnet_red">#DC2626</color>
+    <color name="resqnet_red_dark">#991B1B</color>
+    <color name="resqnet_orange">#EA580C</color>
+    <color name="resqnet_green">#16A34A</color>
+    <color name="resqnet_blue">#2563EB</color>
+    <color name="resqnet_dark_bg">#0F172A</color>
+    <color name="resqnet_card_bg">#1E293B</color>
+    <color name="resqnet_text_primary">#F8FAFC</color>
+    <color name="resqnet_text_muted">#94A3B8</color>
+</resources>

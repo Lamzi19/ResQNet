@@ -80,6 +80,11 @@ class PredictionRequest(BaseModel):
     model_version: str = "2.0.0"  # "1.0.0" (Rain+Soil) or "2.0.0" (Multi-Factor Coastal)
     use_cached_weather: bool = True
     manual_forecast_override_mm: Optional[float] = None
+    simulation_scenario: Optional[str] = Field(
+        None,
+        pattern="^(NORMAL|HEAVY_RAINFALL|EXTREME_RAINFALL)?$",
+        description="Optional synthetic scenario: 'NORMAL', 'HEAVY_RAINFALL', or 'EXTREME_RAINFALL'"
+    )
 
 class PredictionResponse(BaseModel):
     location_id: str
@@ -108,6 +113,9 @@ class PredictionResponse(BaseModel):
     is_rule_based: bool = False
     risk_estimate_type: str = "Calibrated ML probability"
     is_experimental: bool = True
+    is_simulation: bool = False
+    simulation_scenario: Optional[str] = None
+    rule_vs_model_reason: Optional[str] = None
     disclaimer: str
 
 class AlertOut(BaseModel):

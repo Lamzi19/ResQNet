@@ -54,24 +54,24 @@ The interactive OpenAPI documentation will be accessible at:
 - **Swagger UI**: `http://localhost:8000/docs`
 - **Health Check**: `http://localhost:8000/api/health`
 
-### Step B: Frontend Setup & Launch
+### Step B: Unified ResQNet Command Dashboard Launch
 ```bash
 # In a separate terminal, navigate to the frontend directory
 cd frontend
 npm install
 npm run dev
 ```
-Open **`http://localhost:5173`** in your browser to interact with the dashboard.
+Open **`http://localhost:5173`** in your browser. The unified dashboard contains:
+- **ML Flood Intelligence & Early Warning**: Live rainfall trends, river discharge, tidal stalling, and catchment overlays.
+- **Relief Safe-Spots**: Proximity-routed Kerala relief camps and verified capacity.
+- **SOS Operations**: Unified emergency distress queue, triage priority explanation, rescue vessel tasking, and safety-check broadcasts.
 
-### Step C: Rescuer Command Center Setup & Launch
+### Step C: Offline Bluetooth LE Distress Gateway (For Offline Android SOS)
 ```bash
-# In a separate terminal, navigate to the responder-dashboard directory
-cd responder-dashboard
-npm install
-Copy-Item .env.example .env   # On Windows (or 'cp .env.example .env' on Linux/macOS)
-npm run dev
+# In a separate terminal, launch the laptop-side Bluetooth Low Energy receiver
+python backend/scripts/ble_gateway.py
 ```
-Open **`http://localhost:5173`** in your browser to interact with the Kerala multi-district flood simulator, ranked SOS triage list, and rescue boat task assignment portal.
+Listens for 56-byte BLE distress beacons broadcast by offline citizen Android handsets, validates and unpacks the frames, and persists them into the local backend without requiring internet.
 
 ---
 

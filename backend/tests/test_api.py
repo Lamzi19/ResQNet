@@ -93,3 +93,70 @@ def test_get_alerts_and_predictions_history(client):
     res_preds = client.get("/api/predictions")
     assert res_preds.status_code == 200
     assert isinstance(res_preds.json(), list)
+
+
+def test_simulation_scenario_normal(client):
+    response = client.post("/api/predict", json={
+        "location_id": "ernakulam",
+        "simulation_scenario": "NORMAL"
+    })
+    assert response.status_code == 200
+    pred = response.json()
+    assert pred["is_simulation"] is True
+    assert pred["simulation_scenario"] == "NORMAL"
+    assert pred["risk_level"] == "LOW"
+    assert pred["rule_vs_model_reason"] is not None
+    assert pred["input_feature_snapshot"]["forecast_precip_24h_mm"] == 12.0
+    assert pred["input_feature_snapshot"]["past_72h_precip_mm"] == 22.0
+
+
+def test_simulation_scenario_heavy_rainfall(client):
+    response = client.post("/api/predict", json={
+        "location_id": "ernakulam",
+        "simulation_scenario": "HEAVY_RAINFALL"
+    })
+    assert response.status_code == 200
+    pred = response.json()
+    assert pred["is_simulation"] is True
+    assert pred["simulation_scenario"] == "HEAVY_RAINFALL"
+    assert pred["risk_level"] in ["MODERATE_ALERT", "HIGH_WARNING"]
+    assert pred["input_feature_snapshot"]["forecast_precip_24h_mm"] == 85.0
+    assert pred["input_feature_snapshot"]["past_72h_precip_mm"] == 95.0
+
+
+def test_simulation_scenario_extreme_rainfall(client):
+    response = client.post("/api/predict", json={
+        "location_id": "ernakulam",
+        "simulation_scenario": "EXTREME_RAINFALL"
+    })
+    assert response.status_code == 200
+    pred = response.json()
+    assert pred["is_simulation"] is True
+    assert pred["simulation_scenario"] == "EXTREME_RAINFALL"
+    assert pred["risk_level"] == "HIGH_WARNING"
+    assert pred["input_feature_snapshot"]["forecast_precip_24h_mm"] == 185.0
+    assert pred["input_feature_snapshot"]["past_72h_precip_mm"] == 235.0
+
+
+def test_simulation_does_not_dispatch_real_alert(client):
+    # Snapshot alerts count before
+    res_before = client.get("/api/alerts").json()
+    count_before = len(res_before)
+
+    # Run extreme simulation which would trigger alert under live conditions
+    client.post("/api/predict", json={
+        "location_id": "ernakulam",
+        "simulation_scenario": "EXTREME_RAINFALL"
+    })
+
+    # Verify no new alert event was committed to alerts list
+    res_after = client.get("/api/alerts").json()
+    assert len(res_after) == count_before
+
+
+def test_invalid_simulation_scenario_rejected(client):
+    response = client.post("/api/predict", json={
+        "location_id": "ernakulam",
+        "simulation_scenario": "MALICIOUS_NONEXISTENT_SCENARIO"
+    })
+    assert response.status_code == 422
